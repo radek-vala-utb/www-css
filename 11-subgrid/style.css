@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fffbeb;
+  color: #78350f;
+}
+
+main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.pricing-table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 1fr auto auto;
+  gap: 16px;
+}
+
+.plan {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 4;
+  padding: 20px;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid #fde68a;
+}
+
+button {
+  align-self: end;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #f59e0b;
+  color: white;
+}

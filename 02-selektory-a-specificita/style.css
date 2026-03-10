@@ -1,0 +1,65 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f8fafc;
+  color: #111827;
+}
+
+main {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.card {
+  margin-top: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+}
+
+/* Element selector vybere vsechny odstavce. */
+p {
+  color: #374151;
+}
+
+/* Trida ma vyssi specificitu nez element selector. */
+.highlight {
+  background: #fef3c7;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* ID ma jeste vyssi specificitu nez trida. */
+#special-paragraph {
+  color: #b91c1c;
+  font-weight: bold;
+}
+
+.menu a {
+  display: inline-block;
+  margin-right: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: white;
+  background: #2563eb;
+  text-decoration: none;
+}
+
+/* Pseudotrida :hover meni vzhled pri najeti mysi. */
+.menu a:hover {
+  background: #1d4ed8;
+}
+
+/* Pseudoelement ::before vlozi obsah pred element. */
+.note::before {
+  content: "Poznamka: ";
+  font-weight: bold;
+  color: #0f766e;
+}
+
+/* Atributovy selektor cily na odkazy, ktere maji target=_blank. */
+a[target="_blank"] {
+  color: #7c3aed;
+}

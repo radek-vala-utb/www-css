@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0fdf4;
+  color: #14532d;
+}
+
+main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.demo-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.wrapper {
+  padding: 16px;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid #bbf7d0;
+  container-type: inline-size;
+}
+
+.narrow {
+  max-width: 280px;
+}
+
+.wide {
+  max-width: 720px;
+}
+
+.card {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #dcfce7;
+}
+
+/* Tato podminka se vyhodnocuje podle sirky kontejneru .wrapper. */
+@container (min-width: 500px) {
+  .card {
+    grid-template-columns: 180px 1fr;
+    align-items: center;
+  }
+
+  .card h2 {
+    margin: 0;
+  }
+}

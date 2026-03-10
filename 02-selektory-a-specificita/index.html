@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selektory a specificita</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Selektory a specificita</h1>
+      <p>
+        V tomto příkladu jsou vidět element selektory, třídy, ID,
+        pseudotřídy, pseudoelementy i rozdíly ve specificitě.
+      </p>
+
+      <section class="card">
+        <h2>Základní selektory</h2>
+        <p>Odstavce jsou zacílené element selektorem <code>p</code>.</p>
+        <p class="highlight">
+          Tento odstavec má navíc třídu <code>.highlight</code>.
+        </p>
+        <p id="special-paragraph">
+          Tento odstavec má ID <code>#special-paragraph</code>, které má vyšší
+          specificitu nez trida.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Pseudotřídy a pseudoelementy</h2>
+        <nav class="menu">
+          <a href="#">Domů</a>
+          <a href="#">Kurzy</a>
+          <a href="#">Kontakt</a>
+        </nav>
+        <p class="note">
+          Tento odstavec má pseudoelement <code>::before</code>.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Atributovy selektor</h2>
+        <a href="https://example.com" target="_blank">Externí odkaz</a>
+        <a href="/lokalni-stranka">Lokální odkaz</a>
+      </section>
+    </main>
+  </body>
+</html>

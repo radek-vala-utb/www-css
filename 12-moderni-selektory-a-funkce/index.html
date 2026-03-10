@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moderní selektory a funkce</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Moderní selektory a CSS funkce</h1>
+      <p>
+        Tato ukázka demonstruje <code>:is()</code>, <code>:where()</code>,
+        <code>:has()</code>, <code>clamp()</code> a <code>aspect-ratio</code>.
+      </p>
+
+      <section class="card">
+        <h2>Navigace</h2>
+        <nav class="menu">
+          <a href="#">Novinky</a>
+          <a href="#">Galerie</a>
+          <a href="#">Kontakt</a>
+        </nav>
+      </section>
+
+      <section class="card form-card">
+        <h2>Selektor <code>:has()</code></h2>
+        <label>
+          <input type="checkbox" checked />
+          Souhlasím s podmínkami
+        </label>
+      </section>
+
+      <section class="media-card">
+        <div class="placeholder">16 : 9</div>
+      </section>
+    </main>
+  </body>
+</html>

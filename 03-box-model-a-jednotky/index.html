@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Box model a jednotky</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Box model a jednotky</h1>
+      <p>
+        Každý HTML prvek lze chápat jako obdélník. Obsahuje obsah, vnitřní
+        odsazení, rámeček a vnější odsazení.
+      </p>
+
+      <section class="card">
+        <h2>Box model</h2>
+        <div class="box-model-demo">Obsah prvku</div>
+        <p>
+          Oranžová plocha je obsah, světlý prostor uvnitř je
+          <code>padding</code>, tmavy ramecek je <code>border</code> a volne
+          místo okolo je <code>margin</code>.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Jednotky</h2>
+        <div class="units">
+          <div class="unit unit-px">200px</div>
+          <div class="unit unit-percent">60%</div>
+          <div class="unit unit-rem">12rem</div>
+          <div class="unit unit-vw">30vw</div>
+        </div>
+        <p>
+          Jednotka <code>px</code> je pevná, <code>%</code> vychází z rodiče,
+          <code>rem</code> z velikosti kořenového písma a <code>vw</code> ze
+          šířky okna.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

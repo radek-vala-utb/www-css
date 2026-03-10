@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Container queries</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Container queries</h1>
+      <p>
+        Container query reaguje na velikost rodiče, ne na velikost celého okna.
+      </p>
+
+      <div class="demo-grid">
+        <section class="wrapper narrow">
+          <article class="card">
+            <h2>Úzký kontejner</h2>
+            <p>Karta zůstane ve sloupci, protože rodič nemá dost místa.</p>
+          </article>
+        </section>
+
+        <section class="wrapper wide">
+          <article class="card">
+            <h2>Široký kontejner</h2>
+            <p>Ve větším kontejneru se karta přepne do rozložení vedle sebe.</p>
+          </article>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

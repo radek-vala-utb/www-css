@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pozicování</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="sticky-header">Sticky hlavička zůstává při horní hraně.</header>
+
+    <main>
+      <h1>Pozicování prvků</h1>
+      <p>
+        Příklad ukazuje rozdíly mezi <code>relative</code>,
+        <code>absolute</code> a <code>sticky</code>.
+      </p>
+
+      <section class="playground">
+        <div class="relative-box">
+          Rodič s <code>position: relative</code>
+          <div class="absolute-box">Absolute prvek</div>
+        </div>
+      </section>
+
+      <section class="text-block">
+        <p>
+          Sticky hlavička zůstává viditelná při scrollování. Absolute prvek se
+          pozicuje vůči nejbližšímu pozicovanému rodiči.
+        </p>
+        <p>
+          Tento delší blok textu vytváří prostor, aby šlo sticky chování lépe
+          pozorovat při skrolování stránky.
+        </p>
+        <p>
+          CSS pozicování je důležité hlavně pro odznáčky, překryvné prvky,
+          plovoucí menu a pevné hlavičky.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

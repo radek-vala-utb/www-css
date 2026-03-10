@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Propojení HTML a CSS</title>
+
+    <!-- External CSS je nejčastější a nejčistší varianta.
+         Styly máme v samostatném souboru a můžeme je sdílet mezi více stránkami. -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <style>
+      /* Internal CSS je zapsané přímo v HTML dokumentu uvnitř tagu <style>.
+         Hodí se pro malé ukázky nebo jednorázové stránky. */
+      .internal-example {
+        border-left: 6px solid #2563eb;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Propojení HTML a CSS</h1>
+      <p>
+        Tento příklad ukazuje tři způsoby, jak propojit HTML a CSS: inline,
+        internal a external.
+      </p>
+
+      <section class="example-card">
+        <h2>1. Inline CSS</h2>
+        <p>
+          Inline styl je zapsaný přímo v atributu <code>style</code>. Je rychlý
+          na ukázku, ale pro větší projekt je nepřehledný.
+        </p>
+        <p style="background: #fef3c7; padding: 12px; border-radius: 8px;">
+          Tento odstavec má styl přímo v HTML atributu <code>style</code>.
+        </p>
+      </section>
+
+      <section class="example-card internal-example">
+        <h2>2. Internal CSS</h2>
+        <p>
+          Tento blok dostal modrý levý okraj z pravidla zapsaného v tagu
+          <code>&lt;style&gt;</code> v hlavičce dokumentu.
+        </p>
+      </section>
+
+      <section class="example-card external-example">
+        <h2>3. External CSS</h2>
+        <p>
+          Tento blok je stylovaný ze souboru <code>style.css</code>. To je
+          standardní přístup pro reálné weby.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

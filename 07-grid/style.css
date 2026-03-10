@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fdf4ff;
+  color: #581c87;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.box {
+  padding: 20px;
+  border-radius: 12px;
+  background: white;
+  border: 1px solid #e9d5ff;
+  min-height: 120px;
+}
+
+.header,
+.footer {
+  grid-column: 1 / -1;
+}
