@@ -1,11 +1,15 @@
-# CSS vyukove priklady
+# CSS - vyukove priklady
 
 Tento repozitar obsahuje sadu samostatnych ukazek pro vyuku CSS.
 
 Kazda slozka predstavuje jedno tema a obsahuje:
 
 - `index.html` s jednoduchou strukturou a vysvetlujicimi komentari
+- `interactive.html`obsahujici interaktivni priklad práce s CSS vlastnostmi
 - `style.css`, pokud je vhodne oddelit HTML a CSS
+
+Hlavní menu:
+index.html
 
 Doporucene poradi:
 
