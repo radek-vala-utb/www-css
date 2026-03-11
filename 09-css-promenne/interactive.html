@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: CSS proměnné</title>
+    <style>
+      :root { --primary-color: #7c3aed; --surface-color: #f5f3ff; --radius: 16px; }
+      body { font-family: Arial, sans-serif; margin: 0; background: white; color: #2e1065; }
+      main { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { border: 1px solid #ddd6fe; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      select { padding: 10px; font: inherit; }
+      .panel { background: var(--surface-color); }
+      .preview { padding: 20px; border-radius: var(--radius); background: var(--surface-color); border: 2px solid var(--primary-color); }
+      button { padding: 10px 16px; background: var(--primary-color); color: white; border: 0; border-radius: 999px; }
+      code { background: #ede9fe; padding: 2px 6px; border-radius: 4px; }
+      body[data-theme="purple"] { --primary-color: #7c3aed; --surface-color: #f5f3ff; }
+      body[data-theme="blue"] { --primary-color: #2563eb; --surface-color: #eff6ff; }
+      body[data-theme="green"] { --primary-color: #059669; --surface-color: #ecfdf5; }
+      body[data-radius="8"] { --radius: 8px; }
+      body[data-radius="16"] { --radius: 16px; }
+      body[data-radius="24"] { --radius: 24px; }
+    </style>
+  </head>
+  <body data-theme="purple" data-radius="16">
+    <main>
+      <h1>Interaktivní demo: CSS proměnné</h1>
+      <p>Změň hodnoty proměnných a sleduj, že se přepíše více částí rozhraní najednou.</p>
+      <section class="panel">
+        <div class="controls">
+          <label>Primární barva
+            <select id="color">
+              <option value="purple">Fialová</option>
+              <option value="blue">Modrá</option>
+              <option value="green">Zelená</option>
+            </select>
+          </label>
+          <label>Poloměr rohů
+            <select id="radius">
+              <option value="8">8px</option>
+              <option value="16">16px</option>
+              <option value="24">24px</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <section class="demo">
+        <div class="preview" id="preview">
+          <h2>Panel používající proměnné</h2>
+          <p>Stačí změnit jednu hodnotu v <code>:root</code> a projeví se na více místech.</p>
+          <button>Tlačítko</button>
+        </div>
+        <p>Aktuální proměnné: <code id="output"></code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const color = document.querySelector("#color");
+      const radius = document.querySelector("#radius");
+      const output = document.querySelector("#output");
+      const themeRules = {
+        purple: "--primary-color: #7c3aed; --surface-color: #f5f3ff;",
+        blue: "--primary-color: #2563eb; --surface-color: #eff6ff;",
+        green: "--primary-color: #059669; --surface-color: #ecfdf5;"
+      };
+      function render() {
+        document.body.dataset.theme = color.value;
+        document.body.dataset.radius = radius.value;
+        output.textContent = `body { ${themeRules[color.value]} --radius: ${radius.value}px; }`;
+      }
+      [color, radius].forEach((el) => el.addEventListener("change", render));
+      render();
+    </script>
+  </body>
+</html>

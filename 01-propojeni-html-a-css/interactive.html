@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Propojení HTML a CSS</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f8fafc; color: #0f172a; }
+      main { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { background: white; border: 1px solid #cbd5e1; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; }
+      label { font-weight: bold; }
+      select { padding: 10px; font: inherit; }
+      .preview { padding: 16px; border-radius: 12px; background: #f1f5f9; }
+      code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; }
+      .link-row { margin-top: 16px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Propojení HTML a CSS</h1>
+      <p>Vyber způsob stylování a sleduj, jak se mění ukázkový odstavec i vysvětlení.</p>
+      <section class="panel">
+        <div class="controls">
+          <label for="mode">Způsob propojení</label>
+          <select id="mode">
+            <option value="inline">Inline CSS</option>
+            <option value="internal">Internal CSS</option>
+            <option value="external">External CSS</option>
+          </select>
+        </div>
+      </section>
+      <section class="demo">
+        <p id="description"></p>
+        <div class="preview">
+          <p id="sample">Tento text se styluje podle zvoleného způsobu propojení.</p>
+        </div>
+        <p>Aktuální styl: <code id="css-output"></code></p>
+        <p class="link-row"><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const mode = document.querySelector("#mode");
+      const sample = document.querySelector("#sample");
+      const description = document.querySelector("#description");
+      const output = document.querySelector("#css-output");
+      const configs = {
+        inline: {
+          text: "Inline CSS zapisujeme přímo do atributu style na konkrétním prvku.",
+          style: "background:#fef3c7;padding:12px;border-radius:8px;color:#92400e;"
+        },
+        internal: {
+          text: "Internal CSS je definované uvnitř tagu style v jednom HTML dokumentu.",
+          style: "background:#dbeafe;padding:12px;border-left:6px solid #2563eb;border-radius:8px;"
+        },
+        external: {
+          text: "External CSS bývá v samostatném souboru a je nejvhodnější pro větší web.",
+          style: "background:#dcfce7;padding:12px;border-left:6px solid #16a34a;border-radius:8px;"
+        }
+      };
+      function render() {
+        const config = configs[mode.value];
+        sample.setAttribute("style", config.style);
+        description.textContent = config.text;
+        output.textContent = config.style;
+      }
+      mode.addEventListener("change", render);
+      render();
+    </script>
+  </body>
+</html>

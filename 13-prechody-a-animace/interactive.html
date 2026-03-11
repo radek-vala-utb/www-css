@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Přechody a animace</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f8fafc; color: #0f172a; }
+      main { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { background: white; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      select { padding: 10px; font: inherit; }
+      .button-demo { padding: 12px 16px; border: 0; border-radius: 999px; background: #2563eb; color: white; }
+      .loader { width: 56px; height: 56px; border: 8px solid #cbd5e1; border-top-color: #2563eb; border-radius: 50%; margin-top: 24px; }
+      code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @keyframes pulse { 50% { transform: scale(1.15); } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Přechody a animace</h1>
+      <p>Vyber délku přechodu a typ animace. Hned uvidíš rozdíl v chování.</p>
+      <section class="panel">
+        <div class="controls">
+          <label>Délka transition
+            <select id="duration">
+              <option value="0.2s">0.2s</option>
+              <option value="0.5s">0.5s</option>
+              <option value="1s">1s</option>
+            </select>
+          </label>
+          <label>Animace
+            <select id="animation">
+              <option value="spin">spin</option>
+              <option value="pulse">pulse</option>
+              <option value="none">žádná</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <section class="demo">
+        <button class="button-demo" id="button">Najeď na mě</button>
+        <div class="loader" id="loader"></div>
+        <p>Aktuální CSS: <code id="output"></code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const duration = document.querySelector("#duration");
+      const animation = document.querySelector("#animation");
+      const button = document.querySelector("#button");
+      const loader = document.querySelector("#loader");
+      const output = document.querySelector("#output");
+      function render() {
+        button.style.transition = `transform ${duration.value} ease, background-color ${duration.value} ease`;
+        button.onmouseenter = () => {
+          button.style.transform = "translateY(-4px) scale(1.03)";
+          button.style.backgroundColor = "#1d4ed8";
+        };
+        button.onmouseleave = () => {
+          button.style.transform = "none";
+          button.style.backgroundColor = "#2563eb";
+        };
+        loader.style.animation = animation.value === "none" ? "none" : `${animation.value} 1s linear infinite`;
+        output.textContent = `transition-duration:${duration.value}; animation-name:${animation.value};`;
+      }
+      [duration, animation].forEach((el) => el.addEventListener("change", render));
+      render();
+    </script>
+  </body>
+</html>

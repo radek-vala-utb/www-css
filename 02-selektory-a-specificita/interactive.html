@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Selektory a specificita</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f8fafc; color: #111827; }
+      main { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { background: white; border: 1px solid #d1d5db; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; }
+      select { padding: 10px; font: inherit; }
+      .box { padding: 16px; border-radius: 12px; background: #f3f4f6; }
+      code { background: #e5e7eb; padding: 2px 6px; border-radius: 4px; }
+      p#target { color: #1d4ed8; }
+      .highlight { color: #92400e; background: #fef3c7; padding: 8px; border-radius: 8px; }
+      #special-target { color: #991b1b; background: #fee2e2; padding: 8px; border-radius: 8px; font-weight: 700; }
+      [data-role="notice"] { color: #166534; background: #dcfce7; padding: 8px; border-radius: 8px; }
+      .demo[data-state="pseudo"] .pseudo-demo {
+        color: white;
+        background: #1d4ed8;
+        padding: 8px 12px;
+        border-radius: 8px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Selektory a specificita</h1>
+      <p>Změň typ selektoru a sleduj, jaká pravidla se na stejný prvek aplikují.</p>
+      <section class="panel">
+        <div class="controls">
+          <label for="selector-type">Vyber selektor</label>
+          <select id="selector-type">
+            <option value="element">Element selector</option>
+            <option value="class">Třída</option>
+            <option value="id">ID</option>
+            <option value="attribute">Atributový selektor</option>
+            <option value="pseudo">Pseudotřída :hover</option>
+          </select>
+        </div>
+      </section>
+      <section class="demo" id="demo" data-state="element">
+        <p id="explanation"></p>
+        <div class="box">
+          <p id="target">Ukázkový odstavec pro selektory</p>
+        </div>
+        <p>Aktivní pravidlo: <code id="rule"></code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const demo = document.querySelector("#demo");
+      const select = document.querySelector("#selector-type");
+      const target = document.querySelector("#target");
+      const explanation = document.querySelector("#explanation");
+      const rule = document.querySelector("#rule");
+      const configs = {
+        element: ["p#target { color: #1d4ed8; }", "JavaScript nechá prvek jen jako obyčejný odstavec a aktivní je pravidlo pro element.", "id=\"target\""],
+        class: [".highlight { color: #92400e; background: #fef3c7; padding: 8px; border-radius: 8px; }", "JavaScript přidá prvek do třídy a vzhled se změní přes selektor třídy.", "class=\"highlight\""],
+        id: ["#special-target { color: #991b1b; background: #fee2e2; padding: 8px; border-radius: 8px; font-weight: 700; }", "JavaScript změní ID a CSS použije selektor ID.", "id=\"special-target\""],
+        attribute: ["[data-role=\"notice\"] { color: #166534; background: #dcfce7; padding: 8px; border-radius: 8px; }", "JavaScript přidá vlastní atribut a CSS ho zachytí atributovým selektorem.", "data-role=\"notice\""],
+        pseudo: [".demo[data-state=\"pseudo\"] .pseudo-demo { color: white; background: #1d4ed8; padding: 8px 12px; border-radius: 8px; display: inline-block; }", "JavaScript přidá třídu a ukázka simuluje stav pseudotřídy přes data atribut kontejneru.", "class=\"pseudo-demo\" + data-state=\"pseudo\""]
+      };
+      function render() {
+        const [cssRule, text, htmlState] = configs[select.value];
+        demo.dataset.state = select.value;
+        target.className = "";
+        target.id = "target";
+        target.removeAttribute("data-role");
+        if (select.value === "class") target.classList.add("highlight");
+        if (select.value === "id") target.id = "special-target";
+        if (select.value === "attribute") target.setAttribute("data-role", "notice");
+        if (select.value === "pseudo") target.classList.add("pseudo-demo");
+        explanation.textContent = text;
+        rule.textContent = `${cssRule} | HTML stav: ${htmlState}`;
+      }
+      select.addEventListener("change", render);
+      render();
+    </script>
+  </body>
+</html>

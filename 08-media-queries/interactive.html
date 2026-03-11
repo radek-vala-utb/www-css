@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Media queries</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f8fafc; color: #0f172a; }
+      main { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { background: white; border: 1px solid #cbd5e1; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      select, input { padding: 10px; font: inherit; }
+      .viewport { resize: horizontal; overflow: auto; min-width: 260px; max-width: 100%; padding: 16px; border: 2px dashed #94a3b8; border-radius: 16px; }
+      .cards { display: grid; grid-template-columns: 1fr; gap: 16px; }
+      .card { padding: 20px; border-radius: 12px; background: #1d4ed8; color: white; }
+      code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Media queries</h1>
+      <p>Simuluj různé breakpointy a sleduj, kdy se layout přepne do více sloupců.</p>
+      <section class="panel">
+        <div class="controls">
+          <label>Breakpoint
+            <select id="breakpoint">
+              <option value="500">500px</option>
+              <option value="700" selected>700px</option>
+              <option value="900">900px</option>
+            </select>
+          </label>
+          <label>Šířka simulovaného viewportu
+            <input id="width" type="range" min="280" max="920" value="640" />
+          </label>
+        </div>
+      </section>
+      <section class="demo">
+        <div class="viewport" id="viewport">
+          <div class="cards" id="cards">
+            <article class="card">Karta A</article>
+            <article class="card">Karta B</article>
+            <article class="card">Karta C</article>
+          </div>
+        </div>
+        <p id="status"></p>
+        <p>Pravidlo: <code id="output"></code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const breakpoint = document.querySelector("#breakpoint");
+      const width = document.querySelector("#width");
+      const viewport = document.querySelector("#viewport");
+      const cards = document.querySelector("#cards");
+      const status = document.querySelector("#status");
+      const output = document.querySelector("#output");
+      function render() {
+        const currentWidth = Number(width.value);
+        const bp = Number(breakpoint.value);
+        viewport.style.width = `${currentWidth}px`;
+        cards.style.gridTemplateColumns = currentWidth >= bp ? "repeat(3, 1fr)" : "1fr";
+        status.textContent = currentWidth >= bp ? "Breakpoint je splněn, layout má tři sloupce." : "Breakpoint není splněn, layout má jeden sloupec.";
+        output.textContent = `@media (min-width: ${bp}px) { .cards { grid-template-columns: repeat(3, 1fr); } }`;
+      }
+      [breakpoint, width].forEach((el) => el.addEventListener("input", render));
+      render();
+    </script>
+  </body>
+</html>

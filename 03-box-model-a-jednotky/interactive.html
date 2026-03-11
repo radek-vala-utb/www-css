@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Box model a jednotky</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #fff7ed; color: #431407; }
+      main { max-width: 920px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { background: white; border: 1px solid #fdba74; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+      select, input { padding: 10px; font: inherit; }
+      .stage { background: #ffedd5; padding: 24px; border-radius: 12px; }
+      .box { background: #fb923c; color: white; text-align: center; }
+      code { background: #fed7aa; padding: 2px 6px; border-radius: 4px; }
+      .range-row { display: grid; gap: 8px; }
+      .value-note { margin: 0; font-size: 0.95rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Box model a jednotky</h1>
+      <p>Vyzkoušej šířku, padding, margin, border a typ jednotky. Náhled se ihned přepočítá.</p>
+      <section class="panel">
+        <div class="controls">
+          <label>Jednotka
+            <select id="unit">
+              <option value="px">px</option>
+              <option value="percent">%</option>
+              <option value="rem">rem</option>
+              <option value="vw">vw</option>
+            </select>
+          </label>
+          <label class="range-row">Hodnota šířky
+            <input id="width-value" type="range" min="0" max="100" value="60" />
+            <span class="value-note" id="width-display">60%</span>
+          </label>
+          <label>Padding
+            <select id="padding">
+              <option value="8px">8px</option>
+              <option value="16px">16px</option>
+              <option value="32px">32px</option>
+            </select>
+          </label>
+          <label>Margin
+            <select id="margin">
+              <option value="0 auto">0 auto</option>
+              <option value="16px auto" selected>16px auto</option>
+              <option value="32px auto">32px auto</option>
+            </select>
+          </label>
+          <label>Border
+            <select id="border">
+              <option value="2px solid #9a3412">2px solid</option>
+              <option value="8px solid #9a3412" selected>8px solid</option>
+              <option value="16px dashed #9a3412">16px dashed</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <section class="demo">
+        <div class="stage">
+          <div class="box" id="box">Obsah prvku</div>
+        </div>
+        <p>Aktuální CSS: <code id="output"></code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const unit = document.querySelector("#unit");
+      const widthValue = document.querySelector("#width-value");
+      const widthDisplay = document.querySelector("#width-display");
+      const padding = document.querySelector("#padding");
+      const margin = document.querySelector("#margin");
+      const border = document.querySelector("#border");
+      const box = document.querySelector("#box");
+      const output = document.querySelector("#output");
+      function formatWidth() {
+        if (unit.value === "percent") return `${widthValue.value}%`;
+        if (unit.value === "px") return `${widthValue.value * 4}px`;
+        if (unit.value === "rem") return `${(widthValue.value / 10).toFixed(1)}rem`;
+        return `${widthValue.value}vw`;
+      }
+      function updateWidthLabel() {
+        widthDisplay.textContent = formatWidth();
+      }
+      function render() {
+        const style = `width:${formatWidth()};padding:${padding.value};margin:${margin.value};border:${border.value};border-radius:8px;`;
+        box.setAttribute("style", style);
+        output.textContent = style;
+        updateWidthLabel();
+      }
+      unit.addEventListener("change", render);
+      widthValue.addEventListener("input", render);
+      padding.addEventListener("change", render);
+      margin.addEventListener("change", render);
+      border.addEventListener("change", render);
+      render();
+    </script>
+  </body>
+</html>

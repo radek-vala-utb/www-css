@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Container queries</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f0fdf4; color: #14532d; }
+      main { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { background: white; border: 1px solid #bbf7d0; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; }
+      select { padding: 10px; font: inherit; }
+      .wrapper { padding: 16px; border-radius: 16px; border: 1px solid #86efac; container-type: inline-size; }
+      .card { display: grid; gap: 12px; padding: 16px; border-radius: 12px; background: #dcfce7; }
+      .visual { width: 100%; max-width: 160px; min-height: 120px; border-radius: 12px; background: #4ade80; }
+      code { background: #dcfce7; padding: 2px 6px; border-radius: 4px; }
+      .wrapper[data-width="narrow"] { width: 320px; }
+      .wrapper[data-width="medium"] { width: 480px; }
+      .wrapper[data-width="wide"] { width: 720px; }
+      @container (min-width: 500px) {
+        .card { grid-template-columns: 180px 1fr; align-items: center; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Container queries</h1>
+      <p>Mění se velikost kontejneru, ne okna. Podle šířky rodiče se karta přeskupí.</p>
+      <section class="panel">
+        <div class="controls">
+          <label for="width">Šířka kontejneru</label>
+          <select id="width">
+            <option value="narrow">úzký</option>
+            <option value="medium" selected>střední</option>
+            <option value="wide">široký</option>
+          </select>
+        </div>
+      </section>
+      <section class="demo">
+        <div class="wrapper" id="wrapper" data-width="medium">
+          <div class="card">
+            <div class="visual"></div>
+            <div>
+              <h2>Komponenta</h2>
+              <p>Ve větším kontejneru se obsah rozloží do dvou sloupců.</p>
+            </div>
+          </div>
+        </div>
+        <p id="status"></p>
+        <p>Pravidlo: <code id="output">@container (min-width: 500px)</code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const width = document.querySelector("#width");
+      const wrapper = document.querySelector("#wrapper");
+      const status = document.querySelector("#status");
+      const widthRules = {
+        narrow: "320px",
+        medium: "480px",
+        wide: "720px"
+      };
+      const output = document.querySelector("#output");
+      function render() {
+        wrapper.dataset.width = width.value;
+        if (width.value === "wide") {
+          status.textContent = "Container query je aktivní: karta má dva sloupce.";
+        } else {
+          status.textContent = "Container query není aktivní: karta zůstává v jednom sloupci.";
+        }
+        output.textContent = `.wrapper { width: ${widthRules[width.value]}; container-type: inline-size; } @container (min-width: 500px) { .card { grid-template-columns: 180px 1fr; align-items: center; } }`;
+      }
+      width.addEventListener("change", render);
+      render();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Formuláře a přístupnost</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f0f9ff; color: #082f49; }
+      main { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { background: white; border: 1px solid #bae6fd; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      select { padding: 10px; font: inherit; }
+      form { display: grid; gap: 12px; }
+      label { font-weight: bold; }
+      input, textarea, button { font: inherit; padding: 12px; border-radius: 10px; }
+      input, textarea { border: 1px solid #7dd3fc; }
+      button { border: 0; background: #0284c7; color: white; width: max-content; }
+      code { background: #e0f2fe; padding: 2px 6px; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Formuláře a přístupnost</h1>
+      <p>Změň typ focus stylu a úroveň kontrastu. Ukázka simuluje čitelnost i ovládání klávesnicí.</p>
+      <section class="panel">
+        <div class="controls">
+          <label>Focus styl
+            <select id="focusStyle">
+              <option value="outline">výrazný outline</option>
+              <option value="shadow">stín</option>
+              <option value="none">žádný</option>
+            </select>
+          </label>
+          <label>Kontrast
+            <select id="contrast">
+              <option value="high">vysoký</option>
+              <option value="medium">střední</option>
+              <option value="low">nízký</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <section class="demo">
+        <form id="form">
+          <label for="name">Jméno</label>
+          <input id="name" type="text" placeholder="Například Jana" />
+          <label for="message">Zpráva</label>
+          <textarea id="message" rows="4"></textarea>
+          <button type="button">Odeslat</button>
+        </form>
+        <p>Aktuální CSS: <code id="output"></code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const focusStyle = document.querySelector("#focusStyle");
+      const contrast = document.querySelector("#contrast");
+      const form = document.querySelector("#form");
+      const output = document.querySelector("#output");
+      function applyFocus(el) {
+        el.addEventListener("focus", () => {
+          if (focusStyle.value === "outline") {
+            el.style.outline = "3px solid #0ea5e9";
+            el.style.boxShadow = "none";
+          } else if (focusStyle.value === "shadow") {
+            el.style.outline = "none";
+            el.style.boxShadow = "0 0 0 4px rgba(14, 165, 233, 0.25)";
+          } else {
+            el.style.outline = "none";
+            el.style.boxShadow = "none";
+          }
+        });
+        el.addEventListener("blur", () => {
+          el.style.outline = "none";
+          el.style.boxShadow = "none";
+        });
+      }
+      form.querySelectorAll("input, textarea, button").forEach(applyFocus);
+      function render() {
+        const body = document.body;
+        if (contrast.value === "high") {
+          body.style.background = "#f0f9ff";
+          body.style.color = "#082f49";
+        } else if (contrast.value === "medium") {
+          body.style.background = "#eff6ff";
+          body.style.color = "#1e3a8a";
+        } else {
+          body.style.background = "#e0f2fe";
+          body.style.color = "#64748b";
+        }
+        output.textContent = `focus:${focusStyle.value}; contrast:${contrast.value};`;
+      }
+      [focusStyle, contrast].forEach((el) => el.addEventListener("change", render));
+      render();
+    </script>
+  </body>
+</html>

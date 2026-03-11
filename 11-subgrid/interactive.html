@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Subgrid</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #fffbeb; color: #78350f; }
+      main { max-width: 980px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { background: white; border: 1px solid #fde68a; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      select { padding: 10px; font: inherit; }
+      .pricing { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto 1fr auto auto; gap: 16px; }
+      .plan { display: grid; grid-row: span 4; padding: 20px; border-radius: 16px; background: #fffbeb; border: 1px solid #fcd34d; }
+      button { padding: 10px 14px; border: 0; border-radius: 10px; background: #f59e0b; color: white; }
+      code { background: #fef3c7; padding: 2px 6px; border-radius: 4px; }
+      .pricing[data-mode="subgrid"] .plan { grid-template-rows: subgrid; }
+      .pricing[data-mode="regular"] .plan { grid-template-rows: auto 1fr auto auto; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Subgrid</h1>
+      <p>Porovnej běžný grid a subgrid. Cílem je, aby tlačítka zůstala na stejné vodorovné linii.</p>
+      <section class="panel">
+        <div class="controls">
+          <label>Režim
+            <select id="mode">
+              <option value="subgrid">subgrid</option>
+              <option value="regular">běžný grid</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <section class="demo">
+        <div class="pricing" id="pricing" data-mode="subgrid">
+          <article class="plan"><h2>Starter</h2><p>Krátký popis.</p><strong>199 Kč</strong><button>Vybrat</button></article>
+          <article class="plan"><h2>Pro</h2><p>Delší popis ukazuje rozdílnou výšku obsahu a potřebu přesného zarovnání.</p><strong>499 Kč</strong><button>Vybrat</button></article>
+          <article class="plan"><h2>Team</h2><p>Středně dlouhý popis.</p><strong>999 Kč</strong><button>Vybrat</button></article>
+        </div>
+        <p id="status"></p>
+        <p>Aktuální CSS: <code id="output"></code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const mode = document.querySelector("#mode");
+      const pricing = document.querySelector("#pricing");
+      const status = document.querySelector("#status");
+      const output = document.querySelector("#output");
+      function render() {
+        pricing.dataset.mode = mode.value;
+        if (mode.value === "subgrid") {
+          status.textContent = "Subgrid přebírá řádky rodiče, tlačítka se snadněji zarovnají.";
+          output.textContent = `.pricing { grid-template-rows: auto 1fr auto auto; } .plan { grid-row: span 4; grid-template-rows: subgrid; }`;
+        } else {
+          status.textContent = "Každá karta definuje své řádky samostatně.";
+          output.textContent = `.pricing { grid-template-rows: auto 1fr auto auto; } .plan { grid-row: span 4; grid-template-rows: auto 1fr auto auto; }`;
+        }
+      }
+      mode.addEventListener("change", render);
+      render();
+    </script>
+  </body>
+</html>

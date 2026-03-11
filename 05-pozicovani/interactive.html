@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Pozicování</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f8fafc; color: #0f172a; }
+      main { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+      .panel, .demo { background: white; border: 1px solid #cbd5e1; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      select { padding: 10px; font: inherit; }
+      .stage { position: relative; height: 260px; padding: 16px; border-radius: 16px; background: #dbeafe; }
+      .target { padding: 12px 16px; color: white; background: #2563eb; border-radius: 10px; width: max-content; }
+      code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; }
+      .stage[data-position="static"] .target { position: static; }
+      .stage[data-position="relative"] .target { position: relative; }
+      .stage[data-position="absolute"] .target { position: absolute; }
+      .stage[data-position="fixed"] .target { position: fixed; }
+      .stage[data-offset="20"] .target { top: 20px; left: 20px; }
+      .stage[data-offset="50"] .target { top: 50px; left: 50px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Pozicování</h1>
+      <p>Vyber hodnotu <code>position</code> a sleduj, vůči čemu se prvek umisťuje.</p>
+      <section class="panel">
+        <div class="controls">
+          <label>Position
+            <select id="position">
+              <option value="static">static</option>
+              <option value="relative">relative</option>
+              <option value="absolute">absolute</option>
+              <option value="fixed">fixed</option>
+            </select>
+          </label>
+          <label>Posun
+            <select id="offset">
+              <option value="0">0px</option>
+              <option value="20">20px</option>
+              <option value="50">50px</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <section class="demo">
+        <div class="stage" id="stage" data-position="static" data-offset="0">
+          <div class="target" id="target">Pozicovaný prvek</div>
+        </div>
+        <p>Aktuální CSS: <code id="output"></code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const positionSelect = document.querySelector("#position");
+      const offsetSelect = document.querySelector("#offset");
+      const stage = document.querySelector("#stage");
+      const output = document.querySelector("#output");
+      function render() {
+        stage.dataset.position = positionSelect.value;
+        stage.dataset.offset = offsetSelect.value;
+        const offsetRule =
+          positionSelect.value === "static" || offsetSelect.value === "0"
+            ? ""
+            : ` top: ${offsetSelect.value}px; left: ${offsetSelect.value}px;`;
+        output.textContent = `.stage[data-position="${positionSelect.value}"] .target { position: ${positionSelect.value};${offsetRule} }`;
+      }
+      [positionSelect, offsetSelect].forEach((el) => el.addEventListener("change", render));
+      render();
+    </script>
+  </body>
+</html>

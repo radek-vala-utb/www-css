@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Flexbox</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #ecfeff; color: #164e63; }
+      main { max-width: 920px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { background: white; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+      select { padding: 10px; font: inherit; }
+      .stage { display: flex; min-height: 220px; background: #cffafe; padding: 16px; border-radius: 16px; }
+      .item { min-width: 90px; min-height: 90px; display: flex; align-items: center; justify-content: center; background: #0891b2; color: white; border-radius: 12px; }
+      code { background: #a5f3fc; padding: 2px 6px; border-radius: 4px; }
+      .stage[data-direction="row"] { flex-direction: row; }
+      .stage[data-direction="column"] { flex-direction: column; }
+      .stage[data-justify="flex-start"] { justify-content: flex-start; }
+      .stage[data-justify="center"] { justify-content: center; }
+      .stage[data-justify="space-between"] { justify-content: space-between; }
+      .stage[data-wrap="nowrap"] { flex-wrap: nowrap; }
+      .stage[data-wrap="wrap"] { flex-wrap: wrap; }
+      .stage { gap: 16px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Flexbox</h1>
+      <p>Měň směr, zarovnání a zalamování. Flexbox vždy pracuje hlavně v jednom směru.</p>
+      <section class="panel">
+        <div class="controls">
+          <label>flex-direction
+            <select id="direction">
+              <option value="row">row</option>
+              <option value="column">column</option>
+            </select>
+          </label>
+          <label>justify-content
+            <select id="justify">
+              <option value="flex-start">flex-start</option>
+              <option value="center">center</option>
+              <option value="space-between">space-between</option>
+            </select>
+          </label>
+          <label>flex-wrap
+            <select id="wrap">
+              <option value="nowrap">nowrap</option>
+              <option value="wrap">wrap</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <section class="demo">
+        <div class="stage" id="stage" data-direction="row" data-justify="flex-start" data-wrap="nowrap">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+          <div class="item">4</div>
+        </div>
+        <p>Aktuální CSS: <code id="output"></code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const direction = document.querySelector("#direction");
+      const justify = document.querySelector("#justify");
+      const wrap = document.querySelector("#wrap");
+      const stage = document.querySelector("#stage");
+      const output = document.querySelector("#output");
+      function render() {
+        stage.dataset.direction = direction.value;
+        stage.dataset.justify = justify.value;
+        stage.dataset.wrap = wrap.value;
+        output.textContent = `.stage { display: flex; gap: 16px; flex-direction: ${direction.value}; justify-content: ${justify.value}; flex-wrap: ${wrap.value}; }`;
+      }
+      [direction, justify, wrap].forEach((el) => el.addEventListener("change", render));
+      render();
+    </script>
+  </body>
+</html>

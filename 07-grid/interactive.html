@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interaktivní demo: Grid</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #fdf4ff; color: #581c87; }
+      main { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+      .panel, .demo { background: white; border: 1px solid #e9d5ff; border-radius: 16px; padding: 20px; margin-top: 20px; }
+      .controls { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      select { padding: 10px; font: inherit; }
+      .stage { display: grid; gap: 16px; background: #faf5ff; padding: 16px; border-radius: 16px; }
+      .item { min-height: 90px; display: grid; place-items: center; background: #c084fc; color: white; border-radius: 12px; }
+      code { background: #f3e8ff; padding: 2px 6px; border-radius: 4px; }
+      .stage[data-columns="equal"] { grid-template-columns: repeat(3, 1fr); }
+      .stage[data-columns="sidebar"] { grid-template-columns: 220px 1fr; }
+      .stage[data-columns="minmax"] { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+      .stage[data-flow="row"] { grid-auto-flow: row; }
+      .stage[data-flow="column"] { grid-auto-flow: column; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaktivní demo: Grid</h1>
+      <p>Zkus změnit definici sloupců a tok položek. Tady je dobře vidět rozdíl oproti flexboxu.</p>
+      <section class="panel">
+        <div class="controls">
+          <label>grid-template-columns
+            <select id="columns">
+              <option value="equal">repeat(3, 1fr)</option>
+              <option value="sidebar">220px 1fr</option>
+              <option value="minmax">repeat(2, minmax(120px, 1fr))</option>
+            </select>
+          </label>
+          <label>grid-auto-flow
+            <select id="flow">
+              <option value="row">row</option>
+              <option value="column">column</option>
+            </select>
+          </label>
+        </div>
+      </section>
+      <section class="demo">
+        <div class="stage" id="stage" data-columns="equal" data-flow="row">
+          <div class="item">A</div>
+          <div class="item">B</div>
+          <div class="item">C</div>
+          <div class="item">D</div>
+        </div>
+        <p>Aktuální CSS: <code id="output"></code></p>
+        <p><a href="./index.html">Zpět na statickou ukázku</a></p>
+      </section>
+    </main>
+    <script>
+      const columns = document.querySelector("#columns");
+      const flow = document.querySelector("#flow");
+      const stage = document.querySelector("#stage");
+      const output = document.querySelector("#output");
+      const columnRules = {
+        equal: "repeat(3, 1fr)",
+        sidebar: "220px 1fr",
+        minmax: "repeat(2, minmax(120px, 1fr))"
+      };
+      function render() {
+        stage.dataset.columns = columns.value;
+        stage.dataset.flow = flow.value;
+        output.textContent = `.stage { display: grid; gap: 16px; grid-template-columns: ${columnRules[columns.value]}; grid-auto-flow: ${flow.value}; }`;
+      }
+      [columns, flow].forEach((el) => el.addEventListener("change", render));
+      render();
+    </script>
+  </body>
+</html>
